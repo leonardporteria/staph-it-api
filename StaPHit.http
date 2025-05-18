@@ -1,0 +1,6 @@
+@StaPHit_HostAddress = http://localhost:5008
+
+GET {{StaPHit_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
