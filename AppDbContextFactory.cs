@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using System;
 
 namespace StaPHit
 {
@@ -14,7 +16,13 @@ namespace StaPHit
                 .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            // Define your MySQL server version here
+            var serverVersion = new MySqlServerVersion(new Version(8, 4, 4));
+
+            optionsBuilder.UseMySql(connectionString, serverVersion);
 
             return new AppDbContext(optionsBuilder.Options);
         }
